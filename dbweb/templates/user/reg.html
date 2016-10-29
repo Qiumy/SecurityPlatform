@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div id="content-container" class="container">
+        <div class="es-section login-section">
+            <div class="logon-tab clearfix">
+                <a href="{{ url_for('user.signin') }}">登录</a>
+                <a class="active">注册</a>
+            </div>
+            <div class="login-main">
+                <form id="register-form" method="post" action="" novalidate="novalidate" data-widget-cid="widget-1">
+                    <div class="form-group mbl">
+                        <label class="control-label required" for="register_nickname">用户名</label>
+                        <input type="text" id="register_nickname" name="username" required="required"
+                               class="form-control input-lg" data-url="/register/nickname/check"
+                               placeholder="字母、数字、下划线"
+                               data-com.agilebits.onepassword.user-edited="yes"
+                               data-widget-cid="widget-3" data-explain="">
+                        <p class="help-block"></p>
+                        {% if message_u %}
+                            <p class="help-block"><span class="text-danger"> {{ message_u }}</span></p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mbl">
+                        <label class="control-label required" for="register_mobile">邮箱地址</label>
+                        <input type="text" id="login_email" name="email" required="required"
+                               class="form-control input-lg"
+                               placeholder="邮箱地址" data-widget-cid="widget-2" data-explain="">
+                        <p class="help-block"></p>
+                        {% if message_e %}
+                            <p class="help-block"><span class="text-danger"> {{ message_e }}</span></p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mbl">
+                        <label class="control-label required" for="register_password">密码</label>
+                        <input type="password" id="register_password" name="password" required="required"
+                               class="form-control input-lg" data-widget-cid="widget-4" data-explain=""
+                               data-com.agilebits.onepassword.user-edited="yes">
+                        <p class="help-block"></p>
+                    </div>
+                    <div class="form-group mbl">
+                        <label class="control-label required" for="register_password">确认密码</label>
+                        <div class="controls">
+                            <input type="password" id="register_password" name="password2" required="required"
+                                   class="form-control input-lg" data-widget-cid="widget-4" data-explain=""
+                                   data-com.agilebits.onepassword.user-edited="yes">
+                            <p class="help-block"></p>
+                        </div>
+                        {% if message_p %}
+                            <p class="help-block"><span class="text-danger"> {{ message_p }}</span></p>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-group mbl">
+                        <button type="submit" id="register-btn" data-submiting-text="提交"
+                                class="btn btn-primary btn-lg btn-block">注册
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

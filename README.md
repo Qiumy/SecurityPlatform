@@ -1,2 +1,2 @@
-# SecurityPlatform
-A website for Advanced Database homework
+# 证券模拟交易系统
+## 部署方法：略
