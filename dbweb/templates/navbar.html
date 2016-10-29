@@ -33,7 +33,7 @@
                     </a>
                     <ul class="dropdown-menu" role="menu">
                         <li role="presentation" class="dropdown-header">{{ current_user.username }}</li>
-                        <li><a href="{{ url_for('user.view', uid=current_user.id) }}"><i class="es-icon es-icon-person"></i>个人页面</a>
+                        <li><a href="{{ url_for('user.view', uid=current_user.id) }}"><i class="es-icon es-icon-person"></i>个人账户</a>
                         </li>
                         <li><a href="{{ url_for('user.setting') }}"><i
                                 class="es-icon es-icon-setting"></i>个人设置</a></li>
