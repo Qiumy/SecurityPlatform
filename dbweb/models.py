@@ -30,6 +30,13 @@ class User(UserMixin, db.Model):
     personal_id = db.Column(db.String(32))
     personal_profile = db.Column(db.Text(), nullable=True)
 
+    # 用户创建话题, 回复等, 一对多的关系
+    topics = db.relationship('Topic', backref='user', lazy='dynamic')
+    topicNum = db.Column(db.Integer, default=0, nullable=False)
+
+    posts = db.relationship('Post', backref='user', lazy='dynamic')
+    postNum = db.Column(db.Integer, default=0, nullable=False)
+
 
     @property
     def password(self):
@@ -64,3 +71,59 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
+'''互动社区功能'''
+class Group(db.Model):
+    def __init__(self, title, about):
+        self.title = title
+        self.about = about
+        self.createdTime = datetime.now()
+
+    __tablename__ = 'groups'
+    id = db.Column(db.Integer, primary_key=True)        # 专栏 ID
+    title = db.Column(db.String(64), nullable=False)    # 专栏名字
+    about = db.Column(db.Text(), nullable=False)        # 专栏介绍
+    logo = db.Column(db.String(128))                    # 专栏Logo 的 URL
+    topicNum = db.Column(db.Integer, default=0)         # 专栏话题数目
+    createdTime = db.Column(db.DateTime(), default=datetime.utcnow)
+
+    # 专栏内的话题，一对多的关系
+    topics = db.relationship('Topic', backref='group', lazy='dynamic')
+
+class Topic(db.Model):
+    def __init__(self, user_id, title, content, group_id):
+        self.userID = user_id
+        self.title = title
+        self.content = content
+        self.time_created = datetime.now()
+        self.updatedTime = datetime.now()
+        self.groupID = group_id
+
+    __tablename__ = 'topics'
+    id = db.Column(db.Integer, primary_key=True)                # 话题 ID
+    title = db.Column(db.String(64), nullable=False)            # 话题标题
+    content = db.Column(db.Text(), nullable=False)              # 话题内容
+    visitNum = db.Column(db.Integer, default=0)                 # 话题浏览次数
+    postNum = db.Column(db.Integer, default=0)                  # 评论次数
+    groupID = db.Column(db.Integer, db.ForeignKey('groups.id')) # 所属专栏的ID
+    userID = db.Column(db.Integer, db.ForeignKey('users.id'))   # 创建用户的ID
+
+    createdTime = db.Column(db.DateTime(), default=datetime.utcnow)
+    updatedTime = db.Column(db.DateTime(), default=datetime.utcnow)
+
+    # 话题的评论，一对多的关系
+    posts = db.relationship('Post', backref='topic', lazy='dynamic')
+
+
+class Post(db.Model):
+    def __init__(self, user_id, content):
+        self.content = content
+        self.userID = user_id
+        self.createdTime = datetime.now()
+
+    __tablename = "posts"
+    id = db.Column(db.Integer, primary_key=True)                # 评论的ID
+    content = db.Column(db.String(1024), nullable=False)        # 评论内容
+
+    topicID = db.Column(db.Integer, db.ForeignKey('topics.id')) # 所属话题的ID
+    userID = db.Column(db.Integer, db.ForeignKey('users.id'))   # 回复用户的ID
+    createdTime = db.Column(db.DateTime(), default=datetime.utcnow)

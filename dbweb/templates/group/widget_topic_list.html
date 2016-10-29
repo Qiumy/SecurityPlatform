@@ -1,0 +1,52 @@
+<div class="panel-body">
+    {% if latest_topics %}
+        <ul class="media-list thread-list">
+            {% for t in latest_topics %}
+                <li class="media">
+                    <div class="media-left">
+                    <span class="reply-num">
+                        <strong> {{ t.postNum }} </strong> 回复
+                    </span>
+                    </div>
+                    <div class="media-body pts">
+                        <div class="media-heading">
+                            <a class="title gray-darker"
+                               href="{{ url_for('group.topic_view', tid=t.id) }}">{{ t.title }}</a>
+                        </div>
+
+                        <div class="metas">
+                            <a class="userImg js-user-card" href="{{ url_for('user.view', uid=t.userID) }}">
+                                <img class="avatar-xxs" src="{{ t.user.avatar_url }} ">
+                            </a>
+
+                            <a class="link-dark pls"
+                               href="{{ url_for('user.view', uid=t.userID) }}">{{ t.user.username }}</a>
+                            {{ t.createdTime | natural_time }}发起了话题
+                            <span class="divider">•</span>
+                            <a class="gray-darker" href="{{ url_for('group.group_view', gid=t.groupID) }}"
+                               title="">{{ t.group.title }}</a>
+
+                            <span class="divider">•</span>
+                            {% if t.posts.all() %}
+                                <span>最后回复</span>
+                                <a class="link-dark pls"
+                                   href="{{ url_for('user.view', uid=t.posts[-1].userID) }}">{{ t.posts[-1].user.username }}</a>
+                            {% else %}
+                                <span>没有回复</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <div class="panel-heading" id="post-num">
+            <div class="alert alert-info">
+                该专栏下目前没有话题
+            </div>
+        </div>
+    {% endif %}
+</div>
+
+
+{# latest_topics #}
