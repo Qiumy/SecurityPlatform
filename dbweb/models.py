@@ -127,3 +127,16 @@ class Post(db.Model):
     topicID = db.Column(db.Integer, db.ForeignKey('topics.id')) # 所属话题的ID
     userID = db.Column(db.Integer, db.ForeignKey('users.id'))   # 回复用户的ID
     createdTime = db.Column(db.DateTime(), default=datetime.utcnow)
+
+
+""" 咨询信息
+@Article: 用来发布站点公告或者一些资讯、新闻信息。
+"""
+class Article(db.Model):
+    __tablename__ = "articles"
+    id = db.Column(db.Integer, primary_key=True)        # 资讯 ID
+    title = db.Column(db.String(64), nullable=False)    # 资讯标题
+    content = db.Column(db.Text(), nullable=False)      # 资讯正文
+    visitNum = db.Column(db.Integer, default=0)         # 浏览次数
+
+    updatedTime = db.Column(db.DateTime(), default=datetime.utcnow)

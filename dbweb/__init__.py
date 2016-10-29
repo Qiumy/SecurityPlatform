@@ -33,5 +33,7 @@ def create_app(config_name):
     app.register_blueprint(user_blueprint, url_prefix='/user')
     from .group import group as group_blueprint
     app.register_blueprint(group_blueprint, url_prefix='/group')
+    from .article import article as article_blueprint
+    app.register_blueprint(article_blueprint, url_prefix='/article')
 
     return app

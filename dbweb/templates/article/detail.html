@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <script src="{{ url_for('static', filename='js/markdown.js') }}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="container article-detail-main" id="content-container">
+        <ol class="breadcrumb breadcrumb-o" style="margin-top:-18px">
+            <li><a href="/">首页</a></li>
+            <li><a href="{{ url_for('article.index') }}">资讯列表</a></li>
+            <li class="active">{{ article.title | truncate(30) }}</li>
+        </ol>
+
+        <section class="es-section article-content">
+
+            <div class="article-metas">
+                <div class="pull-left">
+                    <div class="date">
+                        <div class="day">{{ article.updatedTime.day }}</div>
+                        <div class="month">{{ article.updatedTime.month }}月</div>
+                    </div>
+                </div>
+                <div class="metas-body">
+                    <h2 class="title">{{ article.title }}</h2>
+                    <div class="sns">
+                        <span class="views-num"><i class="es-icon es-icon-visibility"></i>{{ article.visitNum }}</span>
+                    </div>
+                </div>
+            </div>
+            <div id="content" class="article-text">{{ article.content | markdown | safe }}</div>
+        </section>
+    </div>
+{% endblock %}
