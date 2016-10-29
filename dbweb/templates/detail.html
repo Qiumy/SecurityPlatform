@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="user-center-header has-blurr" data-href="{{ user.avatar_url }}"
+         data-sharpness="40" style="height: 220px; overflow: hidden; position: relative;">
+        <div class="blurr-bg"
+             style="background: url('{{ user.avatar_url }}') center center / 150%; left: 0px; right: 0px; top: -50px; bottom: -50px; width: 1916px; filter: blur(60px); transform: translateZ(0px); position: absolute;"></div>
+        <div class="container clearfix" style="position: absolute; left: 0px; right: 0px; z-index: 1;">
+            <div class="user-avatar">
+                <div class="avatar-wrap">
+                    <img class="avatar-lg" src="{{ user.avatar_url }}">
+                </div>
+                <div class="name">
+                    {{ user.username }}
+                </div>
+                <div class="position">正在学习
+                    <span>{{ user.courses.all()|length }}</span>门课程
+                </div>
+                <div class="position">已加入了
+                    <span>{{ user.groups.all()|length }}</span>个群组
+                </div>
+                <div class="mates">
+                    <span class="mrm">{{ user.topicNum }}</span>话题
+                    <span class="mlm mrm">｜</span><span class="mrm">{{ user.postNum }}</span>回复
+                </div>
+            </div>
+            <div class="user-about hidden-sm hidden-xs">
+                <div class="user-about-content">
+                    {{ user.personal_profile or "暂无签名" }}
+                </div>
+            </div>
+        </div>
+        <div class="mask" style="position: absolute; left: 0px; right: 0px; z-index: 1;"></div>
+    </div>
+
+    <div id="content-container" class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ _('Joined Courses') }}</h3>
+                </div>
+
+                <div class="panel-body">
+                    {% if user.courses.all() %}
+                        <div class="course-list">
+                            {% with courses = user.courses %}
+                                {% include 'course/widget_course_list.html' %}
+                            {% endwith %}
+                        </div>
+                    {% else %}
+                        <br>
+                        <p class="text-center">还没有加入任何课程!</p>
+                        <br>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ _('Joined Groups') }}</h3>
+                </div>
+
+                <div class="panel-body">
+                    {% if user.groups.all() %}
+                        <div class="row">
+                            {% for g in user.groups %}
+                                <div class="col-md-3 col-sm-4">
+                                    <div class="media media-group group-media-sm">
+                                        <div class="media-left">
+                                            <a href="{{ url_for('group.group_view', gid=g.id) }}" class="pull-left ">
+                                                <img src="{{ g.logo }}" alt="{{ g.title }}" class="avatar-square-md">
+                                            </a>
+                                        </div>
+                                        <div class="media-body">
+                                            <div class="title">
+                                                <a class="gray-darker"
+                                                   href="{{ url_for('group.group_view', gid=g.id) }}">{{ g.title }}</a>
+                                            </div>
+                                            <div class="metas">
+                                                <span><i class="es-icon es-icon-people"></i>{{ g.memberNum }}</span>
+                                                <span><i class="es-icon es-icon-topic"></i>{{ g.topicNum }}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <br>
+                        <p class="text-center">还没有加入任何群组!</p>
+                        <br>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{# user #}
