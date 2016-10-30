@@ -1,0 +1,60 @@
+{% extends 'admin/base.html' %}
+
+{% block header_ext %}
+    <link href="{{ url_for('static', filename='css/bootstrap-markdown.min.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='js/bootstrap-markdown.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/markdown.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/to-markdown.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <form action="{{ url_for('admin.group_edit', gid=group.id) }}" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label>群组名称</label>
+                        <input type="text" class="form-control" name='title' value="{{ group.title }}" required>
+                        <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label>群组Logo</label>
+                        <br>
+                        <img id="group-picture" src="{{ group.logo }}">
+                        <input name="logo" accept="image/bmp,image/jpeg,image/png" type="file">
+                        <p class="help-block">你可以上传jpg, bmp, png格式的文件</p>
+                        <br>
+                    </div>
+
+                    <div class="form-group">
+                        <label>群组介绍</label>
+                        <textarea name="about" data-provide="markdown" id="target-editor" rows="30"
+                                  required>{{ group.about }}</textarea>
+                    </div>
+
+                    <div class="form-submit text-right">
+                        <input class='btn btn-success' id='submit' type='submit'>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer_ext %}
+    <script>
+        (function ($) {
+            $.fn.markdown.messages['cn'] = {
+                'Heading': "输入标题",
+                'Insert Hyperlink': "插入链接",
+                'enter image description here': "输入图片描述",
+                'Insert Image Hyperlink': "插入图片链接",
+                'enter image title here': "插入图片标题",
+            };
+        }(jQuery))
+        $("#target-editor").markdown({language: 'cn'})
+    </script>
+{% endblock %}
+
+{# group #}

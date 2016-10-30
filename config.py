@@ -25,7 +25,9 @@ class Config:
     BABEL_DEFAULT_TIMEZONE = 'CST'
 
     PER_PAGE = 10
-    UPLOAD_FOLDER = os.path.join(basedir, 'dbweb/static/upload')
+    # UPLOAD_FOLDER = os.path.join(basedir, 'dbweb/static/upload')
+    UPLOAD_FOLDER = os.path.join(basedir, 'dbweb','static','upload')
+    # GROUP_UPLOAD_FOLDER = os.path.join(basedir, 'dbweb/static/upload/group_logo')
     ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
     MAX_CONTENT_LENGTH = 512 * 1024
 

@@ -31,6 +31,8 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
     from .user import user as user_blueprint
     app.register_blueprint(user_blueprint, url_prefix='/user')
+    from .admin import admin as admin_blueprint
+    app.register_blueprint(admin_blueprint, url_prefix='/admin')
     from .group import group as group_blueprint
     app.register_blueprint(group_blueprint, url_prefix='/group')
     from .article import article as article_blueprint

@@ -1,0 +1,27 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+    <div id="content-container" class="container">
+        <section class="admin-list">
+            <div class="row">
+                <div class="col-sm-6 col-md-4">
+                    <div class="admin-item">
+                        <div class="info">共有 {{ article_cnt }} 资讯</div>
+                        <div class="bottom">
+                            <a class="btn btn-primary" href="{{ url_for('admin.article') }}" data-id="3">资讯管理</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-4">
+                    <div class="admin-item">
+                        <div class="info">共有 {{ group_cnt }} 群组</div>
+                        <div class="bottom">
+                            <a class="btn btn-primary" href="{{ url_for('admin.group') }}" data-id="3">群组管理</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}

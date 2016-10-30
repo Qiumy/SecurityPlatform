@@ -21,6 +21,8 @@ class User(UserMixin, db.Model):
     last_login = db.Column(db.DateTime(), default=datetime.utcnow)
     date_joined = db.Column(db.DateTime(), default=datetime.utcnow)
 
+    # 权限: 0. 管理员, 1. 普通用户
+    permissions = db.Column(db.Integer, default=1, nullable=False)
     website = db.Column(db.String(64), nullable=True)
     avatar_url = db.Column(db.String(64),
                            default="/static/images/default_avatar.jpg")
