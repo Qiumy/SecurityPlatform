@@ -13,13 +13,13 @@
             <div class="panel-body">
                 <form action="{{ url_for('admin.group_edit', gid=group.id) }}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label>群组名称</label>
+                        <label>专栏名称</label>
                         <input type="text" class="form-control" name='title' value="{{ group.title }}" required>
                         <br>
                     </div>
 
                     <div class="form-group">
-                        <label>群组Logo</label>
+                        <label>专栏Logo</label>
                         <br>
                         <img id="group-picture" src="{{ group.logo }}">
                         <input name="logo" accept="image/bmp,image/jpeg,image/png" type="file">
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label>群组介绍</label>
+                        <label>专栏介绍</label>
                         <textarea name="about" data-provide="markdown" id="target-editor" rows="30"
                                   required>{{ group.about }}</textarea>
                     </div>

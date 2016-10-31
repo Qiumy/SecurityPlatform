@@ -29,7 +29,7 @@ def auth():
                 return redirect(url_for('admin.teacher'))
         else:
             message = gettext('Invalid username or password.')
-            return render_template('admin/auth.html', title=gettext('Admin Auth'),
+            return render_template('admin/auth.html', title=u"管理员认证",
                                    form=_form,
                                    message=message)
 
@@ -51,4 +51,4 @@ def system():
                            user_cnt=user_cnt,
                            article_cnt=article_cnt,
                            group_cnt=group_cnt,
-                           title=gettext("System Setting"))
+                           title=u"系统管理")

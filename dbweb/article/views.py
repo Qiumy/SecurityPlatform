@@ -11,7 +11,7 @@ from .. import db
 @article.route('/')
 def index():
     article_list = Article.query.all()
-    return render_template('article/index.html', title=gettext('Articles'), article_list=article_list)
+    return render_template('article/index.html', title=u"专栏", article_list=article_list)
 
 
 @article.route('/<int:article_id>')

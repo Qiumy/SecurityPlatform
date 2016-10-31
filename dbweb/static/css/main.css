@@ -2454,7 +2454,7 @@ textarea {
     background: #f5f8fa;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 991px) and (min-width: 767px){
     .course-list-section {
         padding-bottom: 0;
     }
@@ -2598,7 +2598,7 @@ textarea {
 
 .index-article .index-new-article {
     float: left;
-    width: 65%;
+    width: 95%;
     padding-left: 20px;
     margin-bottom: 0;
 }
@@ -2610,13 +2610,13 @@ textarea {
 
 @media (max-width: 1199px) {
     .index-article .index-new-article {
-        width: 57%;
+        width: 95%;
     }
 }
 
 @media (max-width: 991px) {
     .index-article .index-new-article {
-        width: 72%;
+        width: 95%;
     }
 }
 

@@ -33,7 +33,7 @@
             </div>
             <div class="item" style="background-color: #2f82ea">
                <img src="/static/images/carousel_1.jpg" alt="图片1">
-            </div> 
+            </div>
             <div class="item" style="background-color: #0884f6">
                 <img src="/static/images/carousel_2.jpg" alt="图片2">
             </div>
@@ -63,7 +63,7 @@
 
         <div class="course-list">
             <div class="row">
-                
+
 <div class="col-lg-3 col-md-4 col-xs-6">
     <div class="course-item">
         <div class="course-img">
@@ -261,7 +261,7 @@
             <div class="subtitle">实时指导</div>
         </div>
 
-        
+
         <table class="table table-bordered table-hover">
             <thead>
                 <tr>
@@ -304,7 +304,55 @@
 
     </div>
 </section>
-
+<section class="dynamic-section ">
+        <div class="container">
+            <div class="text-line gray">
+                <h5><span>咨询平台</span>
+                    <div class="line"></div>
+                </h5>
+                <div class="subtitle">时刻关注行业走向，把握投资机会</div>
+            </div>
+            <div class="dynamic-section-main row">
+                <div class="col-md-6">
+                    <div class="panel panel-default index-article">
+                        <div class="panel-heading">
+                            <a href="/group" class="more"><i class="es-icon es-icon-morehoriz"></i></a>
+                            <h3 class="panel-title"><i class="es-icon es-icon-whatshot pull-left"></i>站点公告</h3>
+                        </div>
+                        <div class="panel-body clearfix">
+                            <ul class="index-new-article ">
+                                {% for notice in notices %}
+                                <li class="clearfix">
+                                    <i class="es-icon es-icon-dot color-primary mrs"></i><a href="/article/{{ notice.id }}">{{ notice.title}}</a>
+                                    <span class="date">{{ notice.updatedTime.month }}-{{ notice.updatedTime.day }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="panel panel-default index-article">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                最新资讯
+                            </h3>
+                        </div>
+                        <div class="panel-body clearfix">
+                            <ul class="index-new-article ">
+                                {% for new in news %}
+                                <li class="clearfix">
+                                    <i class="es-icon es-icon-dot color-primary mrs"></i><a href="{{new.url}}">{{ new.title}}</a>
+                                    <span class="date">{{ new.time }}</span>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 {% endblock %}
 
@@ -314,4 +362,3 @@
 
 {% endblock %}
 
-    
