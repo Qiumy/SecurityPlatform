@@ -42,7 +42,7 @@ class DevelopmentConfig(Config):
 
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = (os.environ.get('DEV_DATABASE_URL') or
-                               'mysql://root:@localhost/dbweb')
+                               'mysql://root:199491@localhost/dbweb')
 
 
 class ProductionConfig(Config):
@@ -50,7 +50,7 @@ class ProductionConfig(Config):
         pass
 
     SQLALCHEMY_DATABASE_URI = (os.environ.get('DEV_DATABASE_URL') or
-                               'mysql://root:@localhost/dbweb')
+                               'mysql://root:199491@localhost/dbweb')
 
 
 config = {

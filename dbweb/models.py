@@ -18,6 +18,7 @@ class User(UserMixin, db.Model):
     email = db.Column(db.String(64), unique=True, index=True)
 
     is_password_reset_link_valid = db.Column(db.Boolean, default=True)
+    is_valid_registered = db.Column(db.Boolean, default = False)
     last_login = db.Column(db.DateTime(), default=datetime.utcnow)
     date_joined = db.Column(db.DateTime(), default=datetime.utcnow)
 
@@ -132,7 +133,7 @@ class Post(db.Model):
 
 
 """ 咨询信息
-@Article: 用来发布站点公告或者一些资讯、新闻信息。
+@Article: 用来发布站点公告。
 """
 class Article(db.Model):
     __tablename__ = "articles"

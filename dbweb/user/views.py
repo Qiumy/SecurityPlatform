@@ -29,7 +29,7 @@ def signin():
     elif request.method == 'POST':
         _form = request.form
         u = User.query.filter_by(email=_form['email']).first()
-        if u and u.verify_password(_form['password']):
+        if u and u.verify_password(_form['password']) and u.is_valid_registered:
             login_user(u)
             u.last_login = datetime.now()
             db.session.commit()
@@ -90,15 +90,25 @@ def reg():
                                    message_p=message_p,
                                    message_e=message_e)
 
-        # A valid register info, save the info into db.
+        #A valid register info, save the info into db, and wait for mail confirm.
         else:
             reg_user = User(username=username, email=email, password=password)
             db.session.add(reg_user)
             db.session.commit()
-            login_user(reg_user)
+            token = reg_user.generate_reset_token()
+            send_email(reg_user.email, 'Confirm Your Email',
+                       'user/register_email',
+                       user=reg_user, token=token)
+            return render_template('user/register_sent.html')
 
-            # TODO, Confirm the email.
-            return redirect(request.args.get('next') or url_for('main.index'))
+
+@user.route('/register/<token>')
+def reg_confirm(token):
+    reg_user = User.verify_token(token)
+    reg_user.is_valid_registered = True
+    db.session.commit()
+    login_user(reg_user)
+    return redirect(request.args.get('next') or url_for('main.index'))
 
 
 @user.route('/<int:uid>/')
