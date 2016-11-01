@@ -37,5 +37,6 @@ def create_app(config_name):
     app.register_blueprint(group_blueprint, url_prefix='/group')
     from .article import article as article_blueprint
     app.register_blueprint(article_blueprint, url_prefix='/article')
-
+    from .stock import stock as stock_blueprint
+    app.register_blueprint(stock_blueprint, url_prefix='/stock')
     return app

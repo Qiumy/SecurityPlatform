@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
+    
+    <style type="text/css">
+
+    </style>
+{% endblock %}
+
+
+{% block content %}
+<section class="course-list-section open-course-list-section ">
+    <div class="container">
+        <div class="text-line">
+            <h5><span>浦发银行</span>
+                <div class="line"></div>
+            </h5>
+            <div class="subtitle">股票代码：600000</div>
+        </div>
+    </div>
+
+    <div id="day_k_line" class="container"></div>
+    <div id="min_k_line" class="container"></div>
+</section>
+{% endblock %}
+
+
+{% block footer_ext %}
+{% endblock %}
+
+    
