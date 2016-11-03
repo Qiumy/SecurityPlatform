@@ -7,20 +7,19 @@
 
     <nav class="collapse navbar-collapse">
         <ul class="nav navbar-nav clearfix hidden-xs" id="nav">
+            {% if current_user.is_authenticated %}
             <li>
-                <a href="/user/">个人账户</a>
+                <a href="{{ url_for('user.view', uid=current_user.id) }}">个人账户</a>
             </li>
+            {% endif %}
             <li>
-                <a href="/transcation/">模拟交易</a>
-            </li>
-            <li>
-                <a href="/stock/">个股信息</a>
+                <a href="/stock/">证券资讯</a>
             </li>
             <li>
                 <a href="/group/">互动社区</a>
             </li>
             <li>
-                <a href="/article/">证券资讯</a>
+                <a href="/article/">站点公告</a>
             </li>
         </ul>
 

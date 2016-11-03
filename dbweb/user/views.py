@@ -112,12 +112,12 @@ def reg_confirm(token):
 
 
 @user.route('/<int:uid>/')
+@login_required
 def view(uid):
-    pass
-    # cur_user = User.query.filter_by(id=uid).first_or_404()
-    # return render_template('user/detail.html',
-    #                        title=u'个人页面',
-    #                        user=cur_user)
+    cur_user = User.query.filter_by(id=uid).first_or_404()
+    return render_template('user/detail.html',
+                           title=u'个人页面',
+                           user=cur_user)
 
 
 @user.route('/password/reset/', methods=['GET', 'POST'])

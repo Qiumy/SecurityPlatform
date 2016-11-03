@@ -7,5 +7,5 @@
 python manage.py db migrate</code></pre>
 之后可以导入sql文件（建议使用navicat，一个可视化管理mysql的工具）
 
-3. **启动项目**：先激活虚拟环境，之后运行服务进程。<pre><code>source venv/bin/activate
+3. **启动项目**：先激活虚拟环境，之后运行服务进程。<pre><code>venv/bin/activate
 python manage.py runserver</code></pre>

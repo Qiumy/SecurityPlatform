@@ -5,7 +5,7 @@
     <script src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
     
     <style type="text/css">
-
+        #k_line{width: 1000px;height: 600px;}
     </style>
 {% endblock %}
 
@@ -14,20 +14,242 @@
 <section class="course-list-section open-course-list-section ">
     <div class="container">
         <div class="text-line">
-            <h5><span>浦发银行</span>
+            <h5><span>{{ name }}</span>
                 <div class="line"></div>
             </h5>
-            <div class="subtitle">股票代码：600000</div>
+            <div class="subtitle">股票代码：{{ code }}</div>
         </div>
-    </div>
+    
 
-    <div id="day_k_line" class="container"></div>
-    <div id="min_k_line" class="container"></div>
+    <div id="k_line" class="container"></div>
+    <div class="section-more-btn">
+    
+        <a href="/stock/" class="btn btn-primary btn-lg">
+            进入交易
+        </a>
+            
+    </div>
+    </div>
 </section>
 {% endblock %}
 
 
 {% block footer_ext %}
+ <script type="text/javascript">
+var myChart = echarts.init(document.getElementById('k_line'));
+var data0 = splitData([
+    {% for i in data_days %}
+    ['{{ stock_data.index[i] }}', {{ stock_data.data[i][0] }}, {{ stock_data.data[i][2] }}, {{ stock_data.data[i][3] }}, {{ stock_data.data[i][1] }}],
+    {% endfor %}
+    ]);
+
+
+function splitData(rawData) {
+    var categoryData = [];
+    var values = []
+    for (var i = 0; i < rawData.length; i++) {
+        categoryData.push(rawData[i].splice(0, 1)[0]);
+        values.push(rawData[i])
+    }
+    return {
+        categoryData: categoryData,
+        values: values
+    };
+}
+
+function calculateMA(dayCount) {
+    var result = [];
+    for (var i = 0, len = data0.values.length; i < len; i++) {
+        if (i < dayCount) {
+            result.push('-');
+            continue;
+        }
+        var sum = 0;
+        for (var j = 0; j < dayCount; j++) {
+            sum += data0.values[i - j][1];
+        }
+        result.push(sum / dayCount);
+    }
+    return result;
+}
+
+
+
+option = {
+    title: {
+        text: '历史日线图',
+        left: 0
+    },
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            type: 'line'
+        }
+    },
+    legend: {
+        data: ['日K', 'MA5', 'MA10', 'MA20', 'MA30']
+    },
+    grid: {
+        left: '10%',
+        right: '10%',
+        bottom: '15%'
+    },
+    xAxis: {
+        type: 'category',
+        data: data0.categoryData,
+        scale: true,
+        boundaryGap : false,
+        axisLine: {onZero: false},
+        splitLine: {show: false},
+        splitNumber: 20,
+        min: 'dataMin',
+        max: 'dataMax'
+    },
+    yAxis: {
+        scale: true,
+        splitArea: {
+            show: true
+        }
+    },
+    dataZoom: [
+        {
+            type: 'inside',
+            start: 50,
+            end: 100
+        },
+        {
+            show: true,
+            type: 'slider',
+            y: '90%',
+            start: 50,
+            end: 100
+        }
+    ],
+    series: [
+        {
+            name: '日K',
+            type: 'candlestick',
+            data: data0.values,
+            markPoint: {
+                label: {
+                    normal: {
+                        formatter: function (param) {
+                            return param != null ? Math.round(param.value) : '';
+                        }
+                    }
+                },
+                data: [
+                    {
+                        name: 'XX标点',
+                        coord: ['2013/5/31', 2300],
+                        value: 2300,
+                        itemStyle: {
+                            normal: {color: 'rgb(41,60,85)'}
+                        }
+                    },
+                    {
+                        name: 'highest value',
+                        type: 'max',
+                        valueDim: 'highest'
+                    },
+                    {
+                        name: 'lowest value',
+                        type: 'min',
+                        valueDim: 'lowest'
+                    },
+                    {
+                        name: 'average value on close',
+                        type: 'average',
+                        valueDim: 'close'
+                    }
+                ],
+                tooltip: {
+                    formatter: function (param) {
+                        return param.name + '<br>' + (param.data.coord || '');
+                    }
+                }
+            },
+            markLine: {
+                symbol: ['none', 'none'],
+                data: [
+                    [
+                        {
+                            name: 'from lowest to highest',
+                            type: 'min',
+                            valueDim: 'lowest',
+                            symbol: 'circle',
+                            symbolSize: 10,
+                            label: {
+                                normal: {show: false},
+                                emphasis: {show: false}
+                            }
+                        },
+                        {
+                            type: 'max',
+                            valueDim: 'highest',
+                            symbol: 'circle',
+                            symbolSize: 10,
+                            label: {
+                                normal: {show: false},
+                                emphasis: {show: false}
+                            }
+                        }
+                    ],
+                    {
+                        name: 'min line on close',
+                        type: 'min',
+                        valueDim: 'close'
+                    },
+                    {
+                        name: 'max line on close',
+                        type: 'max',
+                        valueDim: 'close'
+                    }
+                ]
+            }
+        },
+        {
+            name: 'MA5',
+            type: 'line',
+            data: calculateMA(5),
+            smooth: true,
+            lineStyle: {
+                normal: {opacity: 0.5}
+            }
+        },
+        {
+            name: 'MA10',
+            type: 'line',
+            data: calculateMA(10),
+            smooth: true,
+            lineStyle: {
+                normal: {opacity: 0.5}
+            }
+        },
+        {
+            name: 'MA20',
+            type: 'line',
+            data: calculateMA(20),
+            smooth: true,
+            lineStyle: {
+                normal: {opacity: 0.5}
+            }
+        },
+        {
+            name: 'MA30',
+            type: 'line',
+            data: calculateMA(30),
+            smooth: true,
+            lineStyle: {
+                normal: {opacity: 0.5}
+            }
+        },
+
+    ]
+};
+myChart.setOption(option);
+
+ </script>
 {% endblock %}
 
     
