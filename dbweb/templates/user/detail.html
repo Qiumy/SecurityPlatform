@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="user-center-header has-blurr" data-href="/static/upload/9.png?t=1478160813.33"
+         data-sharpness="40" style="height: 220px; overflow: hidden; position: relative;">
+        <div class="blurr-bg"
+             style="background: url('{{ user.avatar_url }}') center center / 150%; left: 0px; right: 0px; top: -50px; bottom: -50px; width: 1916px; filter: blur(60px); transform: translateZ(0px); position: absolute;"></div>
+        <div class="container clearfix" style="position: absolute; left: 0px; right: 0px; z-index: 1;">
+            <div class="user-avatar">
+                <div class="avatar-wrap">
+                    <img class="avatar-lg" src="{{ user.avatar_url }}">
+                </div>
+                <div class="name">
+                    zouzhp3
+                </div>
+                <div class="position">当前总资产
+                    <span>0</span>元
+                </div>
+                <div class="position">账户余额
+                    <span>200000</span>元
+                </div>
+                <div class="position">当前盈利
+                    <span>0</span>元
+                </div>
+                <div class="mates">
+                    <span class="mrm">0</span>话题
+                    <span class="mlm mrm">｜</span><span class="mrm">0</span>回复
+                </div>
+            </div>
+            <div class="user-about hidden-sm hidden-xs">
+                <div class="user-about-content">
+                    {{ user.personal_profile or "暂无签名" }}
+                </div>
+            </div>
+        </div>
+        <div class="mask" style="position: absolute; left: 0px; right: 0px; z-index: 1;"></div>
+    </div>
+
+    <div id="content-container" class="container">
+        <div class="row">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">当前持仓</h3>
+                </div>
+
+                <div class="panel-body">
+                    
+                        <br>
+                        <p class="text-center">还没有持有任何股票!</p>
+                        <br>
+                    
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">交易历史</h3>
+                </div>
+
+                <div class="panel-body">
+                    
+                        <br>
+                        <p class="text-center">还没有任何交易历史</p>
+                        <br>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
