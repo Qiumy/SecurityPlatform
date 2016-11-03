@@ -3,14 +3,20 @@
 from flask import render_template
 from . import main
 from flask_babel import gettext
+from ..models import Article
 import tushare as ts, json
 
 @main.route('/')
 def index():
     whole_indicators = json.loads(ts.get_index()[:4].to_json(orient='records'))
-    print whole_indicators
+    whole_news = json.loads(ts.get_latest_news(top=7).to_json(orient="records"))
+    notice = Article.query.order_by(Article.updatedTime.desc()).limit(7)
+
     return render_template('main/index.html',
-    						whole_indicators=whole_indicators)
+    						whole_indicators=whole_indicators,
+    						news=whole_news,
+    						notices=notice)
+
 
 
 @main.app_errorhandler(404)

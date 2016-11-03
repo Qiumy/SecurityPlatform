@@ -7,27 +7,25 @@
                     <span class="pull-right">
                         <a id="create-course" href="{{ url_for('admin.group_create') }}" class="btn btn-info btn-sm">
                             <span class="glyphicon glyphicon-plus"></span>
-                            创建群组
+                            创建专栏
                         </a>
                     </span>
-                所有群组
+                所有专栏
             </div>
 
             <div class="panel-body">
                 <table class="table" id="course-table" style="word-break:break-all;">
                     <thead>
                     <tr>
-                        <th width="30%">群组名称</th>
-                        <th>成员数目</th>
-                        <th>话题数目</th>
-                        <th>操作</th>
+                        <th width="33%">专栏名称</th>
+                        <th width="33%">话题数目</th>
+                        <th width="33%">操作</th>
                     </tr>
                     </thead>
                     <tbody id="tb">
                     {% for g in groups %}
                         <tr data-gid="{{ g.id }}">
                             <td>{{ g.title }}</td>
-                            <td>{{ g.memberNum }}</td>
                             <td>{{ g.topicNum }}</td>
                             <td>
                                 <a href="{{ url_for('admin.group_edit', gid=g.id) }}">编辑</a>

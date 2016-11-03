@@ -15,14 +15,14 @@ from ..util.upload_file import upload_img
 @system_login
 def index():
     return render_template('admin/system.html',
-                           title=gettext("System Admin"))
+                           title=u"系统管理员")
 
 @admin.route('/articles/')
 @system_login
 def article():
     articles = Article.query.all()
     return render_template('admin/article/index.html',
-                           title=gettext('Articles Admin'),
+                           title=u"公告管理",
                            articles=articles)
 
 @admin.route('/article/create/', methods=['POST', 'GET'])
@@ -71,7 +71,7 @@ def article_delete():
 def group():
     groups = Group.query.all()
     return render_template('admin/group/index.html',
-                           title=gettext('Groups Admin'),
+                           title=u"专栏管理",
                            groups=groups)
 
 

@@ -3,7 +3,7 @@
         <div class="navbar-header">
             {% if current_user | is_system_user %}
                 <a href="{{ url_for('admin.system') }}" class="navbar-brand" style="font-size: 200%;">
-                    {{ _('System Admin') }}</a>
+                    系统管理员</a>
             {% endif %}
         </div>
 
@@ -11,10 +11,10 @@
             <ul class="nav navbar-nav clearfix hidden-xs" id="nav">
                 {% if current_user | is_admin_user %}
                     <li class="nav-hover">
-                        <a href="{{ url_for('admin.article') }}">资讯管理</a>
+                        <a href="{{ url_for('admin.article') }}">公告管理</a>
                     </li>
                     <li class="nav-hover">
-                        <a href="{{ url_for('admin.group') }}">群组管理</a>
+                        <a href="{{ url_for('admin.group') }}">专栏管理</a>
                     </li>
                 {% endif %}
             </ul>
