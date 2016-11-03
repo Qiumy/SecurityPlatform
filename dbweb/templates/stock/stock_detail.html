@@ -3,7 +3,7 @@
 {% block header_ext %}
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
-    
+
     <style type="text/css">
         #k_line{width: 1000px;height: 600px;}
     </style>
@@ -19,15 +19,15 @@
             </h5>
             <div class="subtitle">股票代码：{{ code }}</div>
         </div>
-    
+
 
     <div id="k_line" class="container"></div>
     <div class="section-more-btn">
-    
+
         <a href="/stock/" class="btn btn-primary btn-lg">
             进入交易
         </a>
-            
+
     </div>
     </div>
 </section>
@@ -252,4 +252,4 @@ myChart.setOption(option);
  </script>
 {% endblock %}
 
-    
+
