@@ -35,3 +35,4 @@ def natural_time(dt):
             return "%d %s%s" % (period, singular if period == 1 else plural, gettext(' ago'))
 
     return gettext("Just now")
+

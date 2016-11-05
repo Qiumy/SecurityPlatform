@@ -5,6 +5,7 @@ from . import main
 from flask_babel import gettext
 from ..models import Article
 import tushare as ts, json
+import datetime
 
 @main.route('/')
 def index():
@@ -12,10 +13,18 @@ def index():
     whole_news = json.loads(ts.get_latest_news(top=7).to_json(orient="records"))
     notice = Article.query.order_by(Article.updatedTime.desc()).limit(7)
 
+    dates = datetime.datetime.now()
+    week = datetime.datetime.now().weekday()
+    if week in [5,6]:
+        days = 4 - week
+        dates = dates + datetime.timedelta(days=days)
+    dates = dates.strftime('%Y-%m-%d')
+
     return render_template('main/index.html',
     						whole_indicators=whole_indicators,
     						news=whole_news,
-    						notices=notice)
+    						notices=notice,
+                            dates = dates)
 
 
 

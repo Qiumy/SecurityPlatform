@@ -5,6 +5,7 @@ from flask import render_template, url_for, current_app
 from . import stock
 from flask_babel import gettext
 import tushare as ts, datetime, json
+import datetime
 DELTA_DAYS = 360
 
 # @stock.route("/")
@@ -13,9 +14,17 @@ DELTA_DAYS = 360
 
 @stock.route('/allstock/')
 def allstock():
-	whole_indicators = json.loads(ts.get_index().to_json(orient='records'))
-	return render_template('stock/all_stock.html',
-			whole_indicators=whole_indicators)
+    dates = datetime.datetime.now()
+    week = datetime.datetime.now().weekday()
+    if week in [5,6]:
+        days = 4 - week
+        dates = dates + datetime.timedelta(days=days)
+    dates = dates.strftime('%Y-%m-%d')
+
+    whole_indicators = json.loads(ts.get_index().to_json(orient='records'))
+    return render_template('stock/all_stock.html',
+			whole_indicators=whole_indicators,
+            dates=dates)
 
 @stock.route('/<code>/')
 def stock_view(code):
