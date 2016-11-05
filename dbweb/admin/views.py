@@ -19,14 +19,12 @@ def auth():
     elif request.method == "POST":
         _form = request.form
         u = User.query.filter_by(email=_form['email']).first()
-        if u and u.verify_password(_form['password']) and (u.permissions == 0 or u.permissions == 2):
+        if u and u.verify_password(_form['password']) and (u.permissions == 0):
             login_user(u)
             u.last_login = datetime.now()
             db.session.commit()
             if u.permissions == 0:
                 return redirect(url_for('admin.system'))
-            else:
-                return redirect(url_for('admin.teacher'))
         else:
             message = gettext('Invalid username or password.')
             return render_template('admin/auth.html', title=u"管理员认证",
