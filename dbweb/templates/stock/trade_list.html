@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block header_ext %}
+    <script src="{{ url_for('static', filename='js/echarts.min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+    <div class="container" id="content-container">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="sidenav" id="setting-choose">
+                    <ul class="list-group">
+                        <li class="list-group-heading">交易操作</li>
+
+                        <li class="list-group-item">
+                            <a href="{{ url_for('stock.buy',code=code)}}">
+                                <i class="glyphicon glyphicon-lock"></i> 买入股票</a>
+                        </li>
+
+                        <li class="list-group-item">
+                            <a href="{{ url_for('stock.sell',code=code)}}">
+                                <i class="glyphicon glyphicon-lock"></i> 卖出股票</a>
+                        </li>
+
+                        <li class="list-group-item active">
+                            <a href="{{ url_for('stock.list',code=code)}}">
+                                <i class="glyphicon glyphicon-picture"></i> 交易清单</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-9" id="setting-content">
+                <div class="panel panel-default panel-col">
+                <div class="panel-heading">交易清单——{{ name }}({{ code }})</div>
+                <div class="panel-body">
+                
+
+                <div class="col-md-12 container table-responsive">
+                    {% if trade_list[0] %}
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>股票代码</th>
+                                <th>股票名称</th>
+                                <th>成交价格</th>
+                                <th>成交数量</th>
+                                <th>成交时间</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for trade in trade_list %}
+                            <tr>
+                                <td>{{ code }}</td>
+                                <td>{{ name }}</td>
+                                <td>{{ trade.price }}</td>
+                                <td>{{ trade.num }}</td>
+                                <td>{{ trade.tradeTime }}</td>
+                                {% if trade.is_buy %}
+                                <td>买入</td>
+                                {% else %}
+                                <td>卖出</td>
+                                {% endif %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                            <br>
+                                <p class="text-center">还没有对该股票进行任何交易!</p>
+                            <br>
+                    {% endif %}
+                 </div>
+
+
+
+            </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block footer_ext %}
+{% endblock %}
+
+

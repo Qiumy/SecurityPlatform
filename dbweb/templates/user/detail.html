@@ -14,17 +14,14 @@
                     zouzhp3
                 </div>
                 <div class="position">当前总资产
-                    <span>0</span>元
+                    <span>{{ all_sum }}</span>元
                 </div>
                 <div class="position">账户余额
-                    <span>200000</span>元
-                </div>
-                <div class="position">当前盈利
-                    <span>0</span>元
+                    <span>{{ user.balance }}</span>元
                 </div>
                 <div class="mates">
-                    <span class="mrm">0</span>话题
-                    <span class="mlm mrm">｜</span><span class="mrm">0</span>回复
+                    <span class="mrm">盈利</span>{{ profit }}元
+                    <span class="mlm mrm">｜</span><span class="mrm">盈利率</span>{{ profit_ratio }}%
                 </div>
             </div>
             <div class="user-about hidden-sm hidden-xs">
@@ -44,15 +41,39 @@
                 </div>
 
                 <div class="panel-body">
-                    
-                        <br>
-                        <p class="text-center">还没有持有任何股票!</p>
-                        <br>
-                    
+                    {% if user_stock_list %}
+                     <table class="table table-bordered table-hover">
+                        <thead>
+                            <tr>
+                                <th>股票代码</th>
+                                <th>股票名称</th>
+                                <th>平均买入价格</th>
+                                <th>持有数量</th>
+                                <th>当前价格</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for user_stock in user_stock_list %}
+                            <tr>
+                                <td>{{ user_stock.stock.code }}</td>
+                                <td>{{ user_stock.stock.name }}</td>
+                                <td>{{ user_stock.average_price }}</td>
+                                <td>{{ user_stock.own_num }}</td>
+                                <td>无法获取</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                    {% else %}
+                    <br>
+                    <p class="text-center">还没有持有任何股票!</p>
+                    <br>
+                    {% endif %}
                 </div>
             </div>
 
-            <div class="panel panel-default">
+            <!-- <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">交易历史</h3>
                 </div>
@@ -64,7 +85,7 @@
                         <br>
                     
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 

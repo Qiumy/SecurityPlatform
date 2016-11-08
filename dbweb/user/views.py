@@ -115,9 +115,11 @@ def reg_confirm(token):
 @login_required
 def view(uid):
     cur_user = User.query.filter_by(id=uid).first_or_404()
+    user_stock_list = cur_user.user_stock_list
     return render_template('user/detail.html',
                            title=u'个人页面',
-                           user=cur_user)
+                           user=cur_user,
+                           user_stock_list=user_stock_list)
 
 
 @user.route('/password/reset/', methods=['GET', 'POST'])
@@ -204,7 +206,7 @@ def setting_info():
     elif request.method == 'POST':
         _form = request.form
         email_addr = _form["email"]
-        web_addr = _form["website"]
+        personal_profile = _form["website"]
 
         message_email = ""
         if not email_addr:
@@ -218,7 +220,7 @@ def setting_info():
             return jsonify(content=render_template("user/ajax_setting_info.html",
                                                    message_email=message_email))
         else:
-            current_user.website = web_addr
+            current_user.personal_profile = personal_profile
             current_user.email = email_addr
             db.session.commit()
             message_success = u'更改成功！'
