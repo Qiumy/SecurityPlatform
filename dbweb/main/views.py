@@ -11,7 +11,7 @@ import datetime
 def index():
     whole_indicators = json.loads(ts.get_index()[:4].to_json(orient='records'))
     whole_news = []
-    #whole_news = json.loads(ts.get_latest_news(top=7).to_json(orient="records"))
+    whole_news = json.loads(ts.get_latest_news(top=7).to_json(orient="records"))
     notice = Article.query.order_by(Article.updatedTime.desc()).limit(7)
 
     dates = datetime.datetime.now()
