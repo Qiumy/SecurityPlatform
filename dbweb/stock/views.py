@@ -147,6 +147,8 @@ def sell(code):
         if user_stock.own_num == sell_num:
              user_stock.average_price = 0
              user_stock.own_num = 0
+             db.session.delete(user_stock)
+             db.session.commit()
         else:
             user_stock.average_price = (user_stock.own_num * user_stock.average_price - sell_num * price) / (user_stock.own_num - sell_num)
             user_stock.own_num = user_stock.own_num - sell_num

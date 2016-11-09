@@ -5,8 +5,8 @@ from flask import render_template, redirect, request, url_for, current_app, abor
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_babel import gettext
 from flask_paginate import Pagination
-import re
-import os
+from ..util.get_stock import get_profit_stock_list, get_user_profit
+import re, os
 from PIL import Image
 from datetime import datetime
 from . import user
@@ -115,11 +115,13 @@ def reg_confirm(token):
 @login_required
 def view(uid):
     cur_user = User.query.filter_by(id=uid).first_or_404()
-    user_stock_list = cur_user.user_stock_list
+    profit_stock_list = get_profit_stock_list(cur_user.user_stock_list)
+    user_profit = get_user_profit(profit_stock_list)
     return render_template('user/detail.html',
                            title=u'个人页面',
                            user=cur_user,
-                           user_stock_list=user_stock_list)
+                           profit_stock_list=profit_stock_list,
+                           user_profit=user_profit)
 
 
 @user.route('/password/reset/', methods=['GET', 'POST'])
