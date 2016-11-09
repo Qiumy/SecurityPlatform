@@ -132,14 +132,14 @@ class Post(db.Model):
     createdTime = db.Column(db.DateTime(), default=datetime.utcnow)
 
 
-""" 咨询信息
+"""
 @Article: 用来发布站点公告。
 """
 class Article(db.Model):
     __tablename__ = "articles"
-    id = db.Column(db.Integer, primary_key=True)        # 资讯 ID
-    title = db.Column(db.String(64), nullable=False)    # 资讯标题
-    content = db.Column(db.Text(), nullable=False)      # 资讯正文
+    id = db.Column(db.Integer, primary_key=True)        # 站点公告 ID
+    title = db.Column(db.String(64), nullable=False)    # 站点公告标题
+    content = db.Column(db.Text(), nullable=False)      # 站点公告正文
     visitNum = db.Column(db.Integer, default=0)         # 浏览次数
 
     updatedTime = db.Column(db.DateTime(), default=datetime.utcnow)
