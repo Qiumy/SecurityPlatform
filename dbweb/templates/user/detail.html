@@ -14,14 +14,14 @@
                     zouzhp3
                 </div>
                 <div class="position">当前总资产
-                    <span>{{ all_sum }}</span>元
+                    <span>{{ user_profit.all_mark_value + user.balance }}</span>元
                 </div>
                 <div class="position">账户余额
                     <span>{{ user.balance }}</span>元
                 </div>
                 <div class="mates">
-                    <span class="mrm">盈利</span>{{ profit }}元
-                    <span class="mlm mrm">｜</span><span class="mrm">盈利率</span>{{ profit_ratio }}%
+                    <span class="mrm">盈利</span>{{ user_profit.all_profit }}元
+                    <span class="mlm mrm">｜</span><span class="mrm">盈利率</span>{{ user_profit.all_profit_ratio }}%
                 </div>
             </div>
             <div class="user-about hidden-sm hidden-xs">
@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="panel-body">
-                    {% if user_stock_list %}
+                    {% if profit_stock_list %}
                      <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
@@ -50,17 +50,24 @@
                                 <th>平均买入价格</th>
                                 <th>持有数量</th>
                                 <th>当前价格</th>
-                                
+                                <th>持有股票市值</th>
+                                <th>当前收益率</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% for user_stock in user_stock_list %}
+                            {% for profit_stock in profit_stock_list %}
                             <tr>
-                                <td>{{ user_stock.stock.code }}</td>
-                                <td>{{ user_stock.stock.name }}</td>
-                                <td>{{ user_stock.average_price }}</td>
-                                <td>{{ user_stock.own_num }}</td>
-                                <td>无法获取</td>
+                                <td>{{ profit_stock.code }}</td>
+                                <td><a href='{{ url_for('stock.buy',code=profit_stock.code) }}'>{{ profit_stock.name }}</a></td>
+                                <td>{{ profit_stock.average_price }}</td>
+                                <td>{{ profit_stock.own_num }}</td>
+                                <td>{{ profit_stock.real_price }}元</td>
+                                <td>{{ profit_stock.mark_value }}元</td>
+                                {% if profit_stock.cost != 0 %}
+                                <td>{{ (profit_stock.mark_value - profit_stock.cost) / profit_stock.cost }}%</td>
+                                {% else %}
+                                <td>0</td>
+                                {% endif %}
                             </tr>
                             {% endfor %}
                         </tbody>
